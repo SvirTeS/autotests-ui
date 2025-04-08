@@ -29,12 +29,19 @@ with sync_playwright() as playwright:
 
     page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
 
-    dashboard = page.get_by_test_id('courses-list-toolbar-title-text')
-    expect(dashboard).to_be_visible()
-    expect(dashboard).to_have_text('Courses')
+    courses = page.get_by_test_id('courses-list-toolbar-title-text')
+    expect(courses).to_be_visible()
+    expect(courses).to_have_text('Courses')
 
-    dashboard = page.get_by_test_id('courses-list-empty-view-title-text')
-    expect(dashboard).to_be_visible()
-    expect(dashboard).to_have_text('There is no results')
+    folder = page.get_by_test_id('courses-list-empty-view-icon')
+    expect(folder).to_be_visible()
+
+    text1 = page.get_by_test_id('courses-list-empty-view-title-text')
+    expect(text1).to_be_visible()
+    expect(text1).to_have_text('There is no results')
+
+    text2 = page.get_by_test_id('courses-list-empty-view-description-text')
+    expect(text2).to_be_visible()
+    expect(text2).to_have_text('Results from the load test pipeline will be displayed here')
 
     page.wait_for_timeout(3000)
