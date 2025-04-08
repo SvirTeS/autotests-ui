@@ -21,18 +21,20 @@ with sync_playwright() as playwright:
 
     context.storage_state(path="browser-state.json")
 
-    dashboard = page.get_by_test_id('dashboard-toolbar-title-text')
-    expect(dashboard).to_be_visible()
-    expect(dashboard).to_have_text("Dashboard")
-
-    page.wait_for_timeout(3000)
-
 
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(headless=False)
     context = browser.new_context(storage_state="browser-state.json")
     page = context.new_page()
 
-    page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/dashboard")
+    page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
+
+    dashboard = page.get_by_test_id('courses-list-toolbar-title-text')
+    expect(dashboard).to_be_visible()
+    expect(dashboard).to_have_text('Courses')
+
+    dashboard = page.get_by_test_id('courses-list-empty-view-title-text')
+    expect(dashboard).to_be_visible()
+    expect(dashboard).to_have_text('There is no results')
 
     page.wait_for_timeout(3000)
